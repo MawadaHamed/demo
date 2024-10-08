@@ -25,7 +25,7 @@ class HomeScreenState extends State<HomeScreen>{
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        image: DecorationImage(image: AssetImage('assets/images/bg.png'),
+        image: DecorationImage(image: AssetImage('assets/images/bg3.png'),
           fit: BoxFit.fill,
         )
       ),
