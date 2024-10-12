@@ -4,6 +4,7 @@ import 'package:islami_application/tabs/hadeth/hadeth_tab.dart';
 import 'package:islami_application/tabs/quran/quran_tap.dart';
 import 'package:islami_application/tabs/radio/radio_tab.dart';
 import 'package:islami_application/tabs/sebha/sebha_tab.dart';
+import 'package:islami_application/tabs/setting/setting_tab.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = '/home';
@@ -19,6 +20,7 @@ class HomeScreenState extends State<HomeScreen>{
     HadethTab(),
     SebhaTab(),
     RadioTab(),
+    Setting(),
   ];
 
   @override
@@ -60,6 +62,11 @@ class HomeScreenState extends State<HomeScreen>{
               AssetImage('assets/images/radio.png'),
             ),
                 label: 'Radio'
+            ),
+            BottomNavigationBarItem(icon: Icon(
+              Icons.settings,
+            ),
+                label: 'Setting'
             ),
           ],),
       ),
