@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:islami_application/tabs/quran/surawidget.dart';
+import 'package:islami_application/tabs/setting/setting.dart';
 import 'package:islami_application/theme.dart';
+import 'package:provider/provider.dart';
 
 class SuraContent extends StatefulWidget {
   static const String routeName = '/suraContent';
@@ -21,9 +23,11 @@ class _SuraContentState extends State<SuraContent> {
    if(ayat.isEmpty) {
      loadSuraFile();
    }
+   SettingProvider settingProvider = Provider.of<SettingProvider>(context);
     return Container(
         decoration: BoxDecoration(
-            image: DecorationImage(image: AssetImage('assets/images/bg3.png'),
+            image: DecorationImage(image:
+            AssetImage('assets/images/${settingProvider.backgroundImageName}.png'),
               fit: BoxFit.fill,
             )
         ),
@@ -40,7 +44,7 @@ class _SuraContentState extends State<SuraContent> {
                 vertical: MediaQuery.sizeOf(context).height * .07
             ),
             decoration: BoxDecoration(
-              color: ThemeApp.white,
+              color: settingProvider.isDark ? ThemeApp.darkPrimary:  ThemeApp.white,
               borderRadius: BorderRadius.circular(25)
             ),
             child: ListView.builder(
