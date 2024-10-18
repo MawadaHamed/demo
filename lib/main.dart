@@ -5,11 +5,16 @@ import 'package:islami_application/tabs/quran/sura_content_screen.dart';
 import 'package:islami_application/tabs/setting/setting.dart';
 import 'package:islami_application/theme.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
+  SettingProvider obj =SettingProvider();
   runApp(ChangeNotifierProvider(
-    create: (_) => SettingProvider(),
+      create: (_) => obj,
       child: IslamiApp()));
+  obj.Mode();
+  obj.language();
 }
 
 class IslamiApp extends StatelessWidget {
@@ -28,6 +33,10 @@ class IslamiApp extends StatelessWidget {
       theme: ThemeApp.lightTheme,
       darkTheme: ThemeApp.darkTheme,
       themeMode: settingProvider.themeMode,
+
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      locale: Locale(settingProvider.languageCode),
     );
   }
 }

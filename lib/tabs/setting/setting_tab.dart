@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:islami_application/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:islami_application/tabs/setting/setting.dart';
-
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'langauge.dart';
 
 class Setting extends StatefulWidget {
@@ -16,7 +16,7 @@ class Setting extends StatefulWidget {
 class _SettingState extends State<Setting> {
   List<Language> languages =[
     Language(name: 'English', code: 'en'),
-    Language(name: 'arabic', code: 'ar')
+    Language(name: 'العربيه', code: 'ar')
   ];
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class _SettingState extends State<Setting> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Dark Theme',
+              Text( AppLocalizations.of(context)!.darkmode,
               style: Theme.of(context).
               textTheme.titleLarge
                   ?.copyWith(fontWeight: FontWeight.w500),
@@ -36,8 +36,10 @@ class _SettingState extends State<Setting> {
               Switch(
                 value:
                 settingProvider.isDark,
-                  onChanged: (isDark) => settingProvider
-                      .changeTheme(isDark ? ThemeMode.dark: ThemeMode.light),
+                  onChanged: (isDark) {
+                    settingProvider
+                        .changeTheme(isDark ? ThemeMode.dark : ThemeMode.light);
+                  },
                 activeTrackColor: ThemeApp.gold,
               )
             ],
@@ -45,14 +47,15 @@ class _SettingState extends State<Setting> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Language',
+              Text( AppLocalizations.of(context)!.language,
                 style: Theme.of(context).
                 textTheme.titleLarge
                     ?.copyWith(fontWeight: FontWeight.w500),
               ),
               DropdownButtonHideUnderline(
                 child: DropdownButton<Language>(
-                  value: languages.first,
+                  value: languages.firstWhere((Language) =>
+                  Language.code == settingProvider.languageCode),
                     items:languages.map((Language) =>
                         DropdownMenuItem(child:
                         Text(
@@ -64,9 +67,9 @@ class _SettingState extends State<Setting> {
                     ).toList(),
 
                     onChanged: (selectedLanguage){
-                    if(selectedLanguage != null){
-                      print(selectedLanguage.code);
-                    }
+                    if(selectedLanguage != null) return
+                      settingProvider.changeLanguage(selectedLanguage.code);
+                    settingProvider.language();
                     },
                   borderRadius: BorderRadius.circular(20),
                   dropdownColor: settingProvider.isDark ?
